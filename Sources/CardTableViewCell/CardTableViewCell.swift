@@ -8,14 +8,6 @@
 
 import UIKit
 
-/// Cell type which identifies the position of the cell in the section
-private enum CellType {
-    case top
-    case normal
-    case bottom
-    case single
-}
-
 open class CardTableViewCell: UITableViewCell {
 
     //MARK: Reuse ID
@@ -59,6 +51,10 @@ open class CardTableViewCell: UITableViewCell {
         addConstraints()
     }
     
+    required public init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     //MARK: Helper Method(s)
     private func setDefaultCardProperties() {
         properties = CardCellProperties(
@@ -80,10 +76,6 @@ open class CardTableViewCell: UITableViewCell {
         )
     }
     
-    open func updateCardProperties() {
-        // To be overriden in subclass for customization of properties if needed
-    }
-    
     open func addProperties() {
         updateCardProperties()
         
@@ -95,6 +87,10 @@ open class CardTableViewCell: UITableViewCell {
         separatorView.backgroundColor = properties.separatorColor
         
         // Override and call super to add custom subview properties
+    }
+    
+    open func updateCardProperties() {
+        // To be overriden in subclass for customization of properties if needed
     }
     
     open func addSubviews() {
@@ -239,10 +235,6 @@ open class CardTableViewCell: UITableViewCell {
         if #available(iOS 13.0, *), traitCollection.hasDifferentColorAppearance(comparedTo: previousTraitCollection) {
             shadowLayer.shadowColor = properties.shadowColor.cgColor
         }
-    }
-    
-    required public init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
     }
     
 }

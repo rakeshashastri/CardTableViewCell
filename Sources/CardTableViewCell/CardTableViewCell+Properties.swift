@@ -31,3 +31,11 @@ public struct CardCellProperties {
     public var cardLeadingPadding: CGFloat
     public var cardTrailingPadding: CGFloat
 }
+
+/// Cell type which identifies the position of the cell in the section
+public enum CellType {
+    case top
+    case normal
+    case bottom
+    case single
+}
