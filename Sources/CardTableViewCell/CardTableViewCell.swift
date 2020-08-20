@@ -129,16 +129,7 @@ open class CardTableViewCell: UITableViewCell {
     ///   - tableView: tableView in which the cell is being used
     ///   - indexPath: indexPath of the cell
     public func update(tableView: UITableView, indexPath: IndexPath) {
-        let result = identifyRowType(for: tableView, with: indexPath)
-        switch result {
-        case .success(let type):
-            cellType = type
-        case .failure(let error):
-            switch error {
-            case .tableViewAndIndexPathNotInSync:
-                assertionFailure("IndexPath and UITableView instances not in sync.")
-            }
-        }
+        cellType = identifyRowType(for: tableView, with: indexPath)
         
         let topPadding = (cellType == .top ? properties.cardTopPadding : 0) // Top padding for the first cell or if it's the only cell
         let bottomPadding = (cellType == .bottom ? properties.cardBottomPadding : 0) // Bottom padding for the last cell or if it's the only cell
@@ -153,7 +144,7 @@ open class CardTableViewCell: UITableViewCell {
         setNeedsLayout()
     }
     
-    private func identifyRowType(for tableView: UITableView, with indexPath: IndexPath) -> Result<CellType, CardCellError> {
+    private func identifyRowType(for tableView: UITableView, with indexPath: IndexPath) -> CellType {
         let lastRow = tableView.numberOfRows(inSection: indexPath.section) - 1
         if tableView.numberOfRows(inSection: indexPath.section) == 1 {
             return .success(.single)
@@ -161,14 +152,10 @@ open class CardTableViewCell: UITableViewCell {
             switch indexPath.row {
             case 0:
                 return .success(.top)
-            case 1..<lastRow:
-                return .success(.normal)
             case lastRow:
                 return .success(.bottom)
             default:
-                // How did you end up here!? All the cases have been covered already! @_@
-                // You shouldn't be getting this error if you passed the indexPath and tableView from the cellForRowAt delegate. What did you this time... ¯\_(ツ)_/¯
-                return .failure(.tableViewAndIndexPathNotInSync)
+                return .success(.normal)
             }
         }
     }
