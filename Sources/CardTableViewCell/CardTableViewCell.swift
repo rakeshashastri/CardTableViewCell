@@ -3,7 +3,6 @@
 //  ZohoCampaigns
 //
 //  Created by Rakesha Shastri on 18/04/19.
-//  Copyright © 2019 Zoho Corp. All rights reserved.
 //
 
 import UIKit
@@ -167,7 +166,7 @@ open class CardTableViewCell: UITableViewCell {
             case lastRow:
                 return .success(.bottom)
             default:
-                // How the f**k did you end up here!? All the cases have been covered already! @_@
+                // How did you end up here!? All the cases have been covered already! @_@
                 // You shouldn't be getting this error if you passed the indexPath and tableView from the cellForRowAt delegate. What did you this time... ¯\_(ツ)_/¯
                 return .failure(.tableViewAndIndexPathNotInSync)
             }
