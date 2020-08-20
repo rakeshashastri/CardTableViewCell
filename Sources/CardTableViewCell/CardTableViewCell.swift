@@ -147,15 +147,15 @@ open class CardTableViewCell: UITableViewCell {
     private func identifyRowType(for tableView: UITableView, with indexPath: IndexPath) -> CellType {
         let lastRow = tableView.numberOfRows(inSection: indexPath.section) - 1
         if tableView.numberOfRows(inSection: indexPath.section) == 1 {
-            return .success(.single)
+            return .single
         } else {
             switch indexPath.row {
             case 0:
-                return .success(.top)
+                return .top
             case lastRow:
-                return .success(.bottom)
+                return .bottom
             default:
-                return .success(.normal)
+                return .normal
             }
         }
     }
